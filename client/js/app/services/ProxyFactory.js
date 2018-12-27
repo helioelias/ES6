@@ -18,9 +18,11 @@ class ProxyFactory {
             },
 
             set(target, prop, value, receiver){
+
                 if(props.includes(prop)){
                     acao(target);
                 }
+                
                 return Reflect.set(target, prop, value, receiver);                
             }
         });

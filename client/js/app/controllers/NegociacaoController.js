@@ -24,11 +24,25 @@ class  NegociacaoController{
         );
     }
 
+    importaNegociacoes() {
+       let service = new NegociacaoService();
+       service.obterNegociacoesDaSemana((erro, negociacoes) => {
+
+            if(erro){
+                this._mensagem.texto = err;
+                return;
+            }
+
+            negociacoes.forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
+            this._mensagem.texto = 'Negociações importadas com sucesso';
+       });
+    }
+
     adiciona (event) {
         event.preventDefault();       
-        this._listaNegociacoes.adiciona(this._criaNegociacao());
-        this._mensagem.texto = 'Negociação adicionada com sucesso';
+        this._listaNegociacoes.adiciona(this._criaNegociacao());        
         this._limpaFormulario();
+        this._mensagem.texto = 'Negociação adicionada com sucesso';
         console.log(this._listaNegociacoes);
     }
 
